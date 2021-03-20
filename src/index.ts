@@ -3,8 +3,8 @@ import { SlackAdapter, SlackEventMiddleware } from "botbuilder-adapter-slack";
 import axios from "axios";
 
 const adapter = new SlackAdapter({
-    clientSigningSecret: "fbf5a2bbea57c11a5619b89714509439",
-    botToken: "xoxb-1882204619235-1882029100322-qFBCew9I3V4eAWmtZAXKRBsj",
+    clientSigningSecret: process.env.SINGING_SECRET,
+    botToken: process.env.BOT_TOKEN,
     // Single Teamモードでは不要なパラメータなのですが、型で必須と言われてしまうので仕方なく書いてます。
     redirectUri: ""
 });
