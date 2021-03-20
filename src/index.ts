@@ -18,14 +18,29 @@ const controller = new Botkit({
 controller.on("app_mention", async (bot, message) => {
     const msg = message.incoming_message.channelData.text;
     let data = msg.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
-    data = data.replace(/ /g, '');
-    let num = Number(data);
-    let a = "";
-    console.log(`http://160.251.78.132/teams?team_count=${num}`);
-    await axios.get(`http://160.251.78.132/teams?team_count=${num}`)
-        .then(res => {
-            const teams = res.data["teams"];
-            a = teams;
-        });
-    await bot.reply(message, JSON.stringify(a));
+    let output: any;
+    if (data.match(/maketeam [0-9]*/)) {
+        data = data.replace(/maketeam /g, '');
+        let num = Number(data);
+        output = "*チーム一覧*\n";
+        console.log(num);
+        await axios.get(`http://160.251.78.132/teams?team_members=${num}`)
+            .then(res => {
+                const teams = res.data["teams"];
+                for (let i = 0; i < teams.length; i++) {
+                    output += `[Team${i + 1}]\n`
+                    for (let j = 0; j < teams[i].length; j++) {
+                        output += `*${teams[i][j]}*`
+                        if (j != teams[i].length - 1) output += ', ';
+                    }
+                    output += '\n';
+                }
+            })
+            .catch(err => {
+                output = "Error";
+            })
+    } else {
+        output = "*コマンド一覧*\nmaketeam {1チームの人数)：チームリストを表示\n"
+    }
+    await bot.reply(message, output);
 });
