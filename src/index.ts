@@ -1,6 +1,7 @@
 import { Botkit } from "botkit";
 import { SlackAdapter, SlackEventMiddleware } from "botbuilder-adapter-slack";
 import axios from "axios";
+import fetch from "fetch";
 
 const adapter = new SlackAdapter({
     clientSigningSecret: process.env.SINGING_SECRET,
