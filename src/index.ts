@@ -1,7 +1,7 @@
 import { Botkit } from "botkit";
 import { SlackAdapter, SlackEventMiddleware } from "botbuilder-adapter-slack";
 import axios from "axios";
-import fetch from "fetch";
+import fetch from "node-fetch";
 
 const adapter = new SlackAdapter({
     clientSigningSecret: process.env.SINGING_SECRET,
@@ -55,11 +55,14 @@ controller.on("app_mention", async (bot, message) => {
             .catch(err => {
                 output = "Error";
 		});
-	console.log(data2);
-	console.log(data3);
-	console.log(contri);
-        await axios.post("http://160.251.78.132/users", {
-            headers: {
+	    console.log(JSON.stringify({
+            account_name: data2,
+            role: data3,
+            contribution: contri
+        }));
+        await fetch("http://160.251.78.132/users", {
+	method: "POST",
+		headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
             body: JSON.stringify({
@@ -69,9 +72,11 @@ controller.on("app_mention", async (bot, message) => {
             })
         }).then(function (response) {
             // レスポンス結果
-            console.log(response)
+	    console.log(response)
+	    output = "追加しました";
         }, function (error) {
-            // エラー内容
+	// エラー内容
+	output = "Error";
             console.error(error.message)
         });
     } else {
