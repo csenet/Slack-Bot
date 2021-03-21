@@ -44,7 +44,6 @@ controller.on("app_mention", async (bot, message) => {
     } else if (data.match(/account /)) {
         // data1にaccount名を格納
         data = data.replace(/account /g, '').split(' ');
-        let data1 = data[0];
         // data2にroleを格納
         let data2 = data[1];
         let data3 = data[3];
@@ -61,7 +60,7 @@ controller.on("app_mention", async (bot, message) => {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
             body: JSON.stringify({
-                account_name: data1,
+                account_name: data2,
                 role: data3,
                 contribution: contri
             })
