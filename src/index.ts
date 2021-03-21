@@ -39,9 +39,9 @@ controller.on("app_mention", async (bot, message) => {
                 }
             })
             .catch(err => {
-                output = "Error";
+                output = "Error: サーバーエラーが発生しました";
             })
-    } else if (data.match(/account /)) {
+    } else if (data.match(/account [a-zA-Z]* [a-zA-Z]*/)) {
         // data1にaccount名を格納
         data = data.replace(/account /g, '').split(' ');
         // data2にroleを格納
@@ -53,16 +53,11 @@ controller.on("app_mention", async (bot, message) => {
                 contri = Number(data)
             })
             .catch(err => {
-                output = "Error";
-		});
-	    console.log(JSON.stringify({
-            account_name: data2,
-            role: data3,
-            contribution: contri
-        }));
+                output = "Error: GitHubのアカウント名が存在しません";
+            });
         await fetch("http://160.251.78.132/users", {
-	method: "POST",
-		headers: {
+            method: "POST",
+            headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
             body: JSON.stringify({
@@ -72,11 +67,11 @@ controller.on("app_mention", async (bot, message) => {
             })
         }).then(function (response) {
             // レスポンス結果
-	    console.log(response)
-	    output = "追加しました";
+            console.log(response)
+            output = "追加しました";
         }, function (error) {
-	// エラー内容
-	output = "Error";
+            // エラー内容
+            output = "Error: サーバーエラーが発生しました";
             console.error(error.message)
         });
     } else {
