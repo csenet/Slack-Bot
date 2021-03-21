@@ -47,6 +47,7 @@ controller.on("app_mention", async (bot, message) => {
         let data1 = data[0];
         // data2にroleを格納
         let data2 = data[1];
+        let data3 = data[3];
         await axios.get(`http://160.251.78.132/users/${data2}/contributions`)
             .then(res => {
                 const data = res.data["contributions"];
@@ -55,14 +56,13 @@ controller.on("app_mention", async (bot, message) => {
             .catch(err => {
                 output = "Error";
             })
-        await fetch("http://160.251.78.132/users", {
-            method: "POST",
+        await axios.post("http://160.251.78.132/users", {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
             body: JSON.stringify({
                 account_name: data1,
-                role: data2,
+                role: data3,
                 contribution: contri
             })
         }).then(function (response) {
