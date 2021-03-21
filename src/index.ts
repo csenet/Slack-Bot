@@ -46,7 +46,7 @@ controller.on("app_mention", async (bot, message) => {
         data = data.replace(/account /g, '').split(' ');
         // data2にroleを格納
         let data2 = data[1];
-        let data3 = data[3];
+        let data3 = data[2];
         await axios.get(`http://160.251.78.132/users/${data2}/contributions`)
             .then(res => {
                 const data = res.data["contributions"];
@@ -54,7 +54,10 @@ controller.on("app_mention", async (bot, message) => {
             })
             .catch(err => {
                 output = "Error";
-            })
+		});
+	console.log(data2);
+	console.log(data3);
+	console.log(contri);
         await axios.post("http://160.251.78.132/users", {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
