@@ -1,0 +1,5 @@
+user  = 'shibayama'
+passwd = 'dogensentikan'
+host = 'localhost'
+db = 'teams'
+charset = 'utf8'

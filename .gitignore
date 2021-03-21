@@ -157,4 +157,7 @@ dist/
 tmp/
 temp/
 
+#Server Files
+team_maker/config.py
+
 # End of https://www.toptal.com/developers/gitignore/api/node,macos
