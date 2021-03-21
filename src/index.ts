@@ -72,7 +72,7 @@ controller.on("app_mention", async (bot, message) => {
             console.error(error.message)
         });
     } else {
-        output = "*コマンド一覧*\nmaketeam {1チームの人数)：チームリストを表示\n"
+        output = "*コマンド一覧*\nmaketeam {1チームの人数)：チームリストを表示\naccount {GitHub UserName} {Role}：ユーザを登録"
     }
     await bot.reply(message, output);
 });
