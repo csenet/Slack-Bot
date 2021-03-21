@@ -45,11 +45,9 @@ controller.on("app_mention", async (bot, message) => {
         // data1にaccount名を格納
         data = data.replace(/account /g, '').split(' ');
         let data1 = data[0];
-
         // data2にroleを格納
         let data2 = data[1];
-
-        await axios.get(`http://160.251.78.132/users/${data1}/contributions`)
+        await axios.get(`http://160.251.78.132/users/${data2}/contributions`)
             .then(res => {
                 const data = res.data["contributions"];
                 contri = Number(data)
